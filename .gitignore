@@ -1,0 +1,24 @@
+# Competitive Programming
+**/.cph/
+.vscode
+.idea
+
+# Build artifacts
+*.o
+*.exe
+*.out
+*.app
+
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+
+# IDE
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
