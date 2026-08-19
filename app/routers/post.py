@@ -7,7 +7,7 @@ import psycopg
 from psycopg.rows import dict_row
 import time
 from sqlalchemy.orm import Session
-from .. import models, schemas, utils
+from .. import models, schemas, utils, oauth2
 from ..database import engine, get_db
 
 router=APIRouter(
@@ -23,7 +23,7 @@ def get_posts(db: Session = Depends(get_db)):
     return posts
 
 @router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
-def create_post(post:schemas.PostCreate,db: Session = Depends(get_db)):
+def create_post(post:schemas.PostCreate,db: Session = Depends(get_db), get_curr_user: int = Depends(oauth2.get_curr_user)):
     #cursor.execute("""INSERT INTO posts (title, content, published) VALUES (%s, %s, %s) RETURNING * """, 
     #                (post.title, post.content, post.published ))
     #new_post=cursor.fetchone()
