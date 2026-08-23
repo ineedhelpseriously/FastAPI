@@ -1,4 +1,4 @@
-from jose import JWSError, jwt 
+from jose import JWSError, jwt , JWTError
 from datetime import datetime, timedelta
 from . import schemas
 from fastapi import Depends, status, HTTPException
@@ -9,7 +9,7 @@ oauth2_scheme= OAuth2PasswordBearer(tokenUrl='login')
 #expiration time
 Secret_key="qwertyuiopasdfghjklzxcvbnm"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 90
 
 def create_access_token(data: dict):
     to_encode=data.copy()
@@ -29,7 +29,7 @@ def verify_access_token(token:str, credentials_exception):
             raise credentials_exception
         token_data=schemas.TokenData(id=id)
     
-    except JWSError:
+    except JWTError:
         raise credentials_exception
     
     return token_data
