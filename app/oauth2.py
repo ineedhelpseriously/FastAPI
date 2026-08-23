@@ -25,7 +25,7 @@ def verify_access_token(token:str, credentials_exception):
         paylod=jwt.decode(token, Secret_key, algorithms=[ALGORITHM])
         id: str=paylod.get("user_id")
     
-        if id in None:
+        if id is None:
             raise credentials_exception
         token_data=schemas.TokenData(id=id)
     
